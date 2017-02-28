@@ -1,3 +1,4 @@
+--there should be 23 fields --
 0. removed comments from the top
 1. Tried to lint CSV first - https://csvlint.io/ - shown inconsitnecy errors.
 2. Found out that rows 175-449 have uncencessary commas in the beggining
@@ -5,3 +6,6 @@
 3. Found out empty lines - 1060, 1133, 1246, 1361, 1412, 1459, 1487, 1720, 1792, 2078, 2095, 2118, 2147
 			- removed with - sed -i '/^\s*$/d' Projects_CW1_MessedUp.csv
 4. Found empty rows ,,,,,,,,,,,,,,,,,,,,, - 626, 846, 887, 931
+			- removed with sed -i '/,,,,,,,,,,,,,,,,,,,,/d' Projects_CW1_MessedUp.csv
+5. Rows 646, 647, 648, 1883, 1884, 1885, 1886 - number of fields does not correspond to number of headings - seventh commo seperated value appears to have a comma used as large number seperator, rather than a new field. Removed the unneccesary comma.
+6.
