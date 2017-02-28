@@ -1,3 +1,6 @@
 0. removed comments from the top
 1. Tried to lint CSV first - https://csvlint.io/ - shown inconsitnecy errors.
-2. 
+2. Found out that rows 175-449 have uncencessary commas in the beggining
+			- removed with - sed -i "s/^,,,,,0/0/" Projects_CW1_MessedUp.csv
+3. Found out empty rows - 1060, 1133, 1246, 1361, 1412, 1459, 1487, 1720, 1792, 2078, 2095, 2118, 2147
+			- removed with - sed -i '/^\s*$/d' Projects_CW1_MessedUp.csv
