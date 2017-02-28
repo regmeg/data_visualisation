@@ -1,0 +1,3 @@
+0. removed comments from the top
+1. Tried to lint CSV first - https://csvlint.io/ - shown inconsitnecy errors.
+2. 
