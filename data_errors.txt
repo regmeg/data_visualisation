@@ -1,4 +1,5 @@
---there should be 23 fields --
+--there should be 23 fields   --
+--there should 26 departments --
 0. removed comments from the top
 1. Tried to lint CSV first - https://csvlint.io/ - shown inconsitnecy errors.
 2. Found out that rows 175-449 have uncencessary commas in the beggining
@@ -8,4 +9,79 @@
 4. Found empty rows ,,,,,,,,,,,,,,,,,,,,, - 626, 846, 887, 931
 			- removed with sed -i '/,,,,,,,,,,,,,,,,,,,,/d' Projects_CW1_MessedUp.csv
 5. Rows 646, 647, 648, 1883, 1884, 1885, 1886 - number of fields does not correspond to number of headings - seventh commo seperated value appears to have a comma used as large number seperator, rather than a new field. Removed the unneccesary comma.
-6.
+6. Found duplicate lines - in OpenRefine - ordered by id, blanked down, created blanked facet, removed duplicates.
+7. Removed Total Rows in OpenRefine.
+8. Trimmed leading and trailing whitespace, Applied text facet on the agency name and clustered simillar names, hence removed typos and abriviations. Some could not be clustered, hence changed names manually. There should be 26 different department in the end, jugding by number of Total rows. Some of those were missleading, as could mean different departments. Agency code was used to verify.
+9. Checked the concitency of agency codes - two entries with project id 667 and 672 juding by Agency Code should be in the department of commerce, but are in the department of agriculture. Checked data integricty via Business case ID, turns out agency code was wrong.
+10. Checked uniquenss of the project ID - appears to be unique.
+11. Converted dates to the dates format and checked their consistency via - turns out some completion dates come sooner than the start ones. The reason being is that some dates were assumed to be MM-dd-yyyy, while manual inspections and consistency indicated otherwise. Hence month_first=false was passed to the toDate function:
+	First check  grel: diff(value.toDate(), cells["Start Date"].value.toDate(), 'days')
+	Second check grel: diff(value.toDate(false), cells["Start Date"].value.toDate(false), 'days')
+12. Same was done forplanned and actual completion dates. There were two inconsistencies found, but neither of them could be resolved by simply swaping days with months.
+13. Nummeric facet was applied on the Lifecycle Cost - some out of proportion values were found, most likely types. Moreover some values with extra denononym ($M) were found and corrected. For some data points it was hard to conclude if those were out of proportion or not. As the original data collection mechnasim was not avaible to use and verify, it was asumed that those were based on the lenght and planned/actual cost of the project for sake of consitency.
+	*id's changed -1676, 2991, 1114, 1115, 1162, 1163, 1164, 2942, 2965, 2967
+14. Then checked schedule variance for consitency - it appears to be differnece between planned and actual project completion dates.
+	grel: diff(cells["Planned Project Completion Date (B2)"].value, cells["Projected/Actual Project Completion Date (B2)"].value, 'days')
+For over 50% of projects it appeard to be correct, some of the fields were way off - hence for the sake of representational consistency it was decided to rewrite all the rows.
+15. then schedule variance in percentage looked to be solved like and appeared to be consistent for large part of the entries. Some entries like 3500 and -54600 had to be changed manually.
+		##100* Schedule Variance (in days) / 100* Planned Total Lenght##
+		grel:
+			(100*(cells["-Variance"].value)) / (100*(cells["Planned Project Lenght"].value))
+			(100*diff(cells["Planned Project Completion Date (B2)"].value, cells["Projected/Actual Project Completion Date (B2)"].value, 'days')) / (100*diff(cells["Start Date"].value, cells["Planned Project Completion Date (B2)"].value, 'days'))
+		jython:
+			val1 = 100*cells["-Variance"]["value"]
+			val2 = 100*cells["Planned Project Lenght"]["value"]
+			return round(float(val1)/float(val2) * 100, 2)
+16. moreover, if entries lakced planned and actual completion dates, but had variances - the first two were recovvered too for - recovered 236 values
+			Difference between planned end and start in days:
+				val1 = cells["Schedule Variance (in days)"]["value"]
+				val2 = cells["Schedule Variance (%)"]["value"]
+				return round(float(val1)/float(val2) * 100, 2)
+			Planned Project Completion Date (B2):
+				cells["Start Date"].value.inc(cells["Planned  End - Start (Days)"].value,'days')
+			Projected/Actual Project Completion Date (B2) =
+				cells["Planned Project Completion Date (B2)"].value.inc(0-cells["Schedule Variance (in days)"].value.toNumber(),'days')
+17. Checked data integrity of cost variance in numbers with, differences were found only in rounding, hence everything was rounded to the same degree for consistency.
+		variance:
+			val1 = cells["Projected/Actual Cost ($ M)"]["value"]
+			val2 = cells["Planned Cost ($ M)"]["value"]
+			return round(float(val2) - float(val1),3)
+		diff:
+			cells["cost.var.m"].value - cells["Cost Variance ($ M)"].value
+		applied to Cost Variance ($ M):
+			return round(value,3)
+17. Checked data integrity of cost variance in percentages - seemed to be all consistent
+			val1 = cells["Projected/Actual Cost ($ M)"]["value"]
+			val2 = cells["Planned Cost ($ M)"]["value"]
+			return round(((float(val2) - float(val1)) / float(val2)) * 100,2)
+		diff:
+			cells["cost.var.%"].value - cells["Cost Variance (%)"].value
+16. transfomred updated date with:
+			value.toDate(false)
+17. cheked Agency project ID and Unique project ID for consistency - no obvious pattern was found, hence original was not changed
+
+Completion Date (B1)
+Planned Project Completion Date (B2)
+Projected/Actual Project Completion Date (B2)
+Schedule Variance (in days)
+Schedule Variance (%)
+-Variance
+Planned Project Lenght
+
+
+value.toNumber() + cells["Schedule Variance (in days)"].value.toNumber()
+diff(value, cells["Completion Date (B1)"].value, 'days')
+
+diff(cells["Planned Project Completion Date (B2)"].value, cells["Projected/Actual Project Completion Date (B2)"].value, 'days') / diff(cells["Start Date"].value, cells["Projected/Actual Project Completion Date (B2)"].value, 'days')
+
+####
+Cost Variance ($ M)
+Cost Variance (%)
+Planned Cost ($ M)
+Projected/Actual Cost ($ M)
+cost.var.m
+
+
+				val1 = cells["Projected/Actual Cost ($ M)"]["value"]
+				val2 = cells["Planned Cost ($ M)"]["value"]
+				return float(val1) - float(val2)
