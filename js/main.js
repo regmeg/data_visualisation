@@ -9,7 +9,6 @@
           let header = document.querySelector('header');
           let nav = document.querySelector('nav');
           let respond_to_scroll = function () {
-            console.log('loading')
             if (window.scrollY > header.clientHeight) {
                 nav.style.position = "fixed";
                 nav.style.top = 0;
@@ -57,8 +56,6 @@
         },
         //init the the event binding the actions to the burger
         init: function () {
-            console.log('ready')
-            //make scrolling binds
             main_app.nav_bind()();
             main_app.anchor_bind()();
         }
