@@ -25,53 +25,46 @@
     <section id="description">
       <h2>Introduction</h2>
       <img src="images/famm_capital.jpg" alt=""/>
-      <p>Accessible software design refers to creating software which is usable by a person with a disability or impairment. Quite often accessing such software requires using assistive technologies such as Screen Reader, Magnifier or Braille device.Accessible software design refers to creating software which is usable by a person with a disability</p>
-      <p>Accessible software design refers to creating software which is usable by a person with a disability or impairment. Quite often accessing such software requires using assistive technologies such as Screen Reader, Magnifier or Braille device.Accessible software design refers to creating software which is usable by a person with a disability</p>
-    </section>
-
-    <section>
-      <h2>Dummy</h2>
-      <p>Accessible software design refers to creating software which is usable by a person with a disability or impairment. Quite often accessing such software requires using assistive technologies such as Screen Reader, Magnifier or Braille device.Accessible software design refers to creating software which is usable by a person with a disability</p>
-      <p>Accessible software design refers to creating software which is usable by a person with a disability or impairment. Quite often accessing such software requires using assistive technologies such as Screen Reader, Magnifier or Braille device.Accessible software design refers to creating software which is usable by a person with a disability</p>
-    </section>
-
-    <section>
-      <h2>Dummy</h2>
-      <p>Accessible software design refers to creating software which is usable by a person with a disability or impairment. Quite often accessing such software requires using assistive technologies such as Screen Reader, Magnifier or Braille device.Accessible software design refers to creating software which is usable by a person with a disability</p>
-      <p>Accessible software design refers to creating software which is usable by a person with a disability or impairment. Quite often accessing such software requires using assistive technologies such as Screen Reader, Magnifier or Braille device.Accessible software design refers to creating software which is usable by a person with a disability</p>
+      <p>This site exhibits two visualisations of statistics on the projects run by the United States government departments and agencies. The first visualisation provides an overall view for giving a peripheral and comparative representation among agencies and their types of investments. These are categorised in Lifecycle and Planed / Actual costs and Projects lengths. The second visualisation represents a detailed view of each agency, with more internal statistics of the projects being run. These visualisations do not manifest any actual state of the affair of the United States government and are used purely for the demonstration of the D3.js library capabilities.</p>
     </section>
 
     <section id="visualisation1">
       <h2>Visualisation 1</h2>
+      <p>This visualisation presents a dynamic donut chart about the agencies and types of investments within them. Hover over or click on the region to get more info and click into centre to go back.<p>
       <h3>Projects Overview</h3>
-        <div id="info_pie"></div>
-        <br/>
-        <h3>Agency Info</h3>
-        <div id="agency_info">
-          <p></p>
+        <h4 class="view_sel">Select View</h4>
+        <div id="pie_control">
+          <p id="data-type">Value: <span id="0" style="font-weight: bold;  color: blue;">Lifecycle Cost ($M)</span> / <span id="6">Projected/Actual Cost ($M)</span> / <span id="7">Project Length (Days)</span></p>
+          <p id="stat-type">Stat: <span id="0" style="font-weight: bold;  color: blue;">Total</span> / <span id="1">Average</span> / <span id="2">Median</span></p>
         </div>
-    </section>
-
-    <section>
-      <h2>Dummy</h2>
-      <p>Accessible software design refers to creating software which is usable by a person with a disability or impairment. Quite often accessing such software requires using assistive technologies such as Screen Reader, Magnifier or Braille device.Accessible software design refers to creating software which is usable by a person with a disability</p>
-      <p>Accessible software design refers to creating software which is usable by a person with a disability or impairment. Quite often accessing such software requires using assistive technologies such as Screen Reader, Magnifier or Braille device.Accessible software design refers to creating software which is usable by a person with a disability</p>
-    </section>
-
-    <section>
-      <h2>Dummy</h2>
-      <p>Accessible software design refers to creating software which is usable by a person with a disability or impairment. Quite often accessing such software requires using assistive technologies such as Screen Reader, Magnifier or Braille device.Accessible software design refers to creating software which is usable by a person with a disability</p>
-      <p>Accessible software design refers to creating software which is usable by a person with a disability or impairment. Quite often accessing such software requires using assistive technologies such as Screen Reader, Magnifier or Braille device.Accessible software design refers to creating software which is usable by a person with a disability</p>
+        <div id="info_pie"></div>
+        <div id="tooltip_pie" style="display:none;">
+          <h4></h4>
+          <p id="prop"></p>
+          <p id="key"></p>
+          <p id="val"></p>
+          <p id="num"></p>
+        </div>
     </section>
 
     <section id="visualisation2">
       <h2>Visualisation 2</h2>
-      <p>Accessible software design refers to creating software which is usable by a person with a disability or impairment. Quite often accessing such software requires using assistive technologies such as Screen Reader, Magnifier or Braille device.Accessible software design refers to creating software which is usable by a person with a disability</p>
-      <p>Accessible software design refers to creating software which is usable by a person with a disability or impairment. Quite often accessing such software requires using assistive technologies such as Screen Reader, Magnifier or Braille device.Accessible software design refers to creating software which is usable by a person with a disability</p>
+      <p>This visualisation presents a dynamic tree, which shows data categorized by agency, investment tittle and relative distances between the data points for the choisen value.</p>
+      <h3>Projects Detailed View</h3>
+        <h4 class="view_sel">Selected View: <span id="selectedTree" style="font-weight: bold;  color: blue;">Global</span></h4>
+        <div id="tree_control">
+        </div>
+        <div id="info_tree"></div>
+        <div id="tooltip_tree" style="display:none;">
+          <h4></h4>
+          <p id="key"></p>
+          <p id="num"></p>
+          <p id="val_tree"></p>
+        </div>
     </section>
     <footer>
       <p>Copyright Information:</p>
-      <p>All was code written by Rihards Baranovskis (rb7e15) in 2017 under MIT license.</p>
+      <p>visualisation code written by Rihards Baranovskis (rb7e15) in 2017 under MIT license.</p>
       <p>Heading image used is a courtesy of FAMM.</p>
     </footer>
 

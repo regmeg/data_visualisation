@@ -34,18 +34,40 @@
           let view_checks = function (elem) {
             let docViewTop = window.scrollY;
             let docViewBottom = docViewTop + window.innerHeight;
+            let docsize = docViewBottom - docViewTop;
             var elemTop = document.querySelector(elem).offsetTop;
             var elemBottom = elemTop + document.querySelector(elem).clientHeight;
-            return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
+            let elemsize = elemBottom - elemTop;
+            let prcn_in = 0;
+            let fully_in = (elemBottom <= docViewBottom) && (elemTop >= docViewTop);
+            let partly_in = ((elemTop >= docViewTop) && (elemTop <= docViewBottom)) || ((elemBottom >= docViewTop) && (elemBottom <= docViewBottom))
+            if (partly_in) {
+              if ((elemTop >= docViewTop) && (elemTop <= docViewBottom)) prcn_in = (docViewBottom - elemTop) / elemsize
+              if ((elemBottom >= docViewTop) && (elemBottom <= docViewBottom))  prcn_in = (elemBottom - docViewTop) / elemsize
+              if (fully_in) prcn_in = 1;
+            }
+            if ((elemsize >= docsize) && !partly_in) {
+              partly_in = (elemBottom >= docViewBottom) && (elemTop <= docViewTop)
+              if (partly_in) prcn_in = 1;
+            }
+            return [partly_in, prcn_in];
           };
           let respond_to_scroll = function () {
-            //console.log("description:" +   + " visualisation1: " + view_checks('#visualisation1') + " visualisation2: " + view_checks('#visualisation2'))
             a_description.className = "";
             a_visualisation1.className = "";
             a_visualisation2.className = "";
-            if (view_checks('#description')) {a_description.className = "selected"}
-            if (view_checks('#visualisation1')) {a_visualisation1.className = "selected"}
-            if (view_checks('#visualisation2')) {a_visualisation2.className = "selected"}
+            let ar1 = view_checks('#description');
+            let in1 = ar1[0]
+            let prc1 = ar1[1]
+            let ar2 = view_checks('#visualisation1');
+            let in2 = ar2[0]
+            let prc2 = ar2[1]
+            let ar3 = view_checks('#visualisation2');
+            let in3 = ar3[0]
+            let prc3 = ar3[1]
+            if (in1 && prc1 > prc2) {a_description.className = "selected"}
+            if (in2 && (prc1 <= prc2) && (prc2 - 0.1 >= prc3)) {a_visualisation1.className = "selected"}
+            if (in3 && (prc3 > prc2 - 0.1)) {a_visualisation2.className = "selected"}
 
           };
           let init = function() {

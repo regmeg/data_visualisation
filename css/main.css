@@ -37,10 +37,11 @@ header {
 
 main {
   min-height: 600px;
-  max-width: 650px;
+  max-width: 750px;
   margin-left: auto;
   margin-right: auto;
   background-color: white;
+  padding-top: 10px;
 }
 
 nav {
@@ -108,6 +109,7 @@ main > section {
   border-bottom: 1px solid gray;
 }
 
+
 main > section > img {
  width: 99%;
 }
@@ -124,12 +126,32 @@ footer > p:first-of-type {
   font-weight: bold;
 }
 
+h4.view_sel{
+  text-align: center;
+  margin-bottom: 5px;
+}
+div#pie_control{
+  border: lightgray 2px solid;
+  padding: 10px;
+  border-radius: 4px;
+  text-align: center;
+  margin-bottom: 10px;
+}
 
+div#tooltip_pie, div#tooltip_tree {
+  background-color: azure;
+  border: lightgray 2px solid;
+  padding: 10px;
+}
+
+.link {
+  fill: none;
+  stroke: #ccc;
+  stroke-width: 2px;
+}
 @media screen and (max-width: 690px)  {
 
-  main > section.intro,
-  main > section.quick-links,
-  main > section.evaluation {
+  main > section.intro  {
     padding-top: 8px;
     padding-bottom: 8px;
     display: block;
@@ -140,12 +162,6 @@ footer > p:first-of-type {
     width: 90%;
   }
 
-  section.quick-links > h2,
-  section.quick-links > ul{
-    display: table;
-    margin-left: auto;
-    margin-right: auto;
-}
 
   nav > ul > li,
   nav > ul > li > a {
@@ -176,46 +192,4 @@ footer > p:first-of-type {
     text-align: center;
   }
 
-  main > section > img.droid-img {
-   width: 100%;
-  }
-}
-
-table  {
-  border-collapse:collapse;
-  border-spacing:0;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-table td{
-  font-size:14px;
-  padding:10px 5px;
-  border-style:solid;
-  border-width:1px;
-  overflow:hidden;
-  word-break:normal;
-}
-
-table th{
-  font-size:14px;
-  font-weight:bold;
-  padding:10px 5px;
-  border-style:solid;border-width:1px;
-  overflow:hidden;
-  word-break:normal;
-}
-
-table .tg-gray{
-  vertical-align:top;
-
-}
-table .tg-green{
-  color:green;
-  vertical-align:top;
-}
-
-table .tg-red{
-  color:#a70000;
-  vertical-align:top;
 }
